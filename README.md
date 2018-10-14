@@ -1,6 +1,6 @@
 # django-kindeditor
 
-This repo is for the purpose to make it easy to use KindEditor as a RichTextEditor when use django.
+This repo is to make it easy to use KindEditor as a RichTextEditor when using django.
 
 ## Do the following steps to see the demo
 
