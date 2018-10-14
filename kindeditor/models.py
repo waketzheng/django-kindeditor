@@ -7,14 +7,16 @@ from django.utils.translation import gettext as _
 
 
 class KindeditorModel(models.Model):
-    content = models.TextField(_('content'))
+    content = models.TextField(_("content"))
 
     class Meta:
         abstract = True
 
+
 class UploadImage(models.Model):
-    img = models.ImageField(upload_to=getattr(
-        settings, 'KINDEDITOR_UPLOAD_TO', 'upload/%Y/%m/'))
+    img = models.ImageField(
+        upload_to=getattr(settings, "KINDEDITOR_UPLOAD_TO", "upload/%Y/%m/")
+    )
 
 
 @receiver(post_delete, sender=UploadImage)

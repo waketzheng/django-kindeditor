@@ -5,20 +5,21 @@ from .widgets import KindeditorWidget
 
 
 class RichTextField(models.TextField):
-    
     def __init__(self, *args, **kwargs):
-        self.config_name = kwargs.pop('config_name', 'default')
-        self.extra_plugins = kwargs.pop('extra_plugins', [])
+        self.config_name = kwargs.pop("config_name", "default")
+        self.extra_plugins = kwargs.pop("extra_plugins", [])
         self.external_plugin_resource = kwargs.pop(
-            'external_plugin_resource', [])
+            "external_plugin_resource", []
+        )
         super().__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': self._get_form_class(),
-            'config_name': self.config_name,
-            'extra_plugins': self.extra_plugins,
-            'external_plugin_resources': self.external_plugin_resource}
+            "form_class": self._get_form_class(),
+            "config_name": self.config_name,
+            "extra_plugins": self.extra_plugins,
+            "external_plugin_resources": self.external_plugin_resource,
+        }
         defaults.update(kwargs)
         return super().formfield(**defaults)
 
@@ -28,11 +29,21 @@ class RichTextField(models.TextField):
 
 
 class RichTextFormField(forms.fields.CharField):
-    
     def __init__(
-            self, config_name='default', extra_plugins=None,
-            external_plugin_resources=None, *args, **kwargs):
-        kwargs.update({'widget': KindeditorWidget(
-            config_name=config_name,  extra_plugins=extra_plugins,
-            external_plugin_resources=external_plugin_resources)})
+        self,
+        config_name="default",
+        extra_plugins=None,
+        external_plugin_resources=None,
+        *args,
+        **kwargs
+    ):
+        kwargs.update(
+            {
+                "widget": KindeditorWidget(
+                    config_name=config_name,
+                    extra_plugins=extra_plugins,
+                    external_plugin_resources=external_plugin_resources,
+                )
+            }
+        )
         super().__init__(*args, **kwargs)
