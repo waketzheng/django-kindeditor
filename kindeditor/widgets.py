@@ -10,7 +10,7 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import get_language
 
-from js_asset import JS, static
+# from js_asset import JS, static
 
 
 class LazyEncoder(DjangoJSONEncoder):

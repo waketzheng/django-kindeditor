@@ -51,10 +51,10 @@ git clone https://github.com/waketzheng/django-kindeditor
 cp django-kindeditor/kindeditor /path/of/your/project
 ```
 
-2. install djangorestframework
+2. install djangorestframework and pillow
 
 ```
-pip install djangorestframework
+pip install djangorestframework pillow
 ```
 
 3. and add `kindeditor` and `rest_framework` to INSTALLED_APPS in your settings file
