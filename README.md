@@ -79,6 +79,12 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         ...
+
+# admin.py
+from django.contrib import admin
+from kindeditor import EditorAdmin
+from .models import Article
+admin.site.register(Article, EditorAdmin)
 ```
 
 5. the forms, views and template can be as follows:
