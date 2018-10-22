@@ -31,27 +31,98 @@ pipenv shell
 ./manage.py migrate
 ```
 
-5. create a superuser
-
-```
-./manage.py createsuperuser
-```
-
-6. runserver
+5. runserver
 
 ```
 ./manage.py runserver
 ```
 
-7. view the url and login with the superuse created abort, then you will see the demo at webbrowser
+6. view the url and you will see the demo at webbrowser
 
 http://127.0.0.1:8000
 
 
+## Use it in your django project
+
+1. copy the `kindeditor` directory to your project
+
+```
+git clone https://github.com/waketzheng/django-kindeditor
+cp django-kindeditor/kindeditor /path/of/your/project
+```
+
+2. install djangorestframework
+
+```
+pip install djangorestframework
+```
+
+3. and add `kindeditor` and `rest_framework` to INSTALLED_APPS in your settings file
+
+```
+INSTALLED_APPS = [
+    ...
+    'kindeditor',
+    'rest_framework',
+]
+```
+
+4. replace `TextField` by `RichTextField` where your want it to be a Kindeditor
+
+```
+# models.py
+from kindeditor import RichTextField
+
+class Article(models.Model):
+    title = models.CharField(max_length=80)
+    content = RichTextField()
+
+    def get_absolute_url(self):
+        ...
+```
+
+5. the forms, views and template can be as follows:
+
+```
+# forms.py
+from django import forms
+from .models import Article
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = '__all__'
+
+# views.py
+from .forms import Article, ArticleForm
+
+def create_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(requset.POST)
+        if form.is_valid():
+            article = form.save()
+            return redirect(article.get_absolute_url())
+    else:
+        form = ArticleForm()
+    return render(request, 'create.html', {'form': form})
+
+# create.html
+<html>
+<head>
+    {{ form.media }}
+</head>
+<body>
+    <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="ok">
+    </form>
+</body>
+</html>
+```
+
+
 ## TODOLIST
 
-1. create RichTextField
+1. unit test
 
-2. unit test
-
-3. upload to pypi
+2. upload to pypi
