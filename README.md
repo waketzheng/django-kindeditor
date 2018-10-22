@@ -2,6 +2,9 @@
 
 This repo is for the purpose to make it easy to use KindEditor as a RichTextEditor when use django.
 
+You can visit this site to see the editor result: 
+http://kindeditor.org/
+
 ## Do the following steps to see the demo
 
 1. clone the repo the local

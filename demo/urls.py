@@ -1,4 +1,4 @@
-"""kindeditor_demo URL Configuration
+"""demo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -16,16 +16,31 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.shortcuts import redirect
-from django.urls import path, include, reverse
+from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import path, include
+
+from demo.demo_app.forms import ArticleForm, Article
 
 
 def index(request):
-    return redirect(reverse("admin:demo_app_examplemodel_add"))
+    if request.method == "POST":
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = form.save()
+            return redirect(article.get_absolute_url())
+    else:
+        form = ArticleForm()
+    return render(request, "index.html", {"form": form})
+
+
+def article_detail(request, pk):
+    obj = get_object_or_404(Article, pk=pk)
+    return render(request, "detail.html", {"object": obj})
 
 
 urlpatterns = [
     path("", index, name="index"),
+    path("<int:pk>", article_detail, name="article-detail"),
     path("admin/", admin.site.urls),
     path("kindeditor/", include("kindeditor.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

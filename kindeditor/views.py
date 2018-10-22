@@ -8,7 +8,8 @@ from .serializers import ImageSerializer
 
 
 class ImageUploadView(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    permission_classes = ()
 
     def post(self, request):
         serializer = ImageSerializer(data=request.FILES)

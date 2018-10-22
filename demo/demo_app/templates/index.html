@@ -1,0 +1,8 @@
+{% load i18n %}
+<head>
+    {{ form.media }}
+</head>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "publish" %}</button>
+</form>
