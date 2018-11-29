@@ -1,6 +1,4 @@
 from django import forms
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string

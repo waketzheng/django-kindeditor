@@ -25,10 +25,11 @@ pipenv install --dev
 pipenv shell
 ```
 
-4. migrate
+4. migrate and compile translation file
 
 ```
 ./manage.py migrate
+./manage.py compilemessages
 ```
 
 5. runserver

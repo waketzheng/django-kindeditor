@@ -1,14 +1,24 @@
+from django.conf import settings
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from .serializers import ImageSerializer
 
+SETTINGS_PERMISSION_MAP = {
+    "login": (IsAuthenticated,),
+    "admin": (IsAdminUser,),
+}
+
+
+def _upload_permission():
+    perm = getattr(settings, "KINDEDITOR_UPLOAD_PERMISSION", None)
+    return SETTINGS_PERMISSION_MAP.get(perm, ())
+
 
 class ImageUploadView(APIView):
-    # permission_classes = (IsAuthenticated,)
     permission_classes = ()
 
     def post(self, request):
