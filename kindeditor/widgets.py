@@ -1,6 +1,4 @@
 from django import forms
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
@@ -9,8 +7,6 @@ from django.utils.functional import Promise
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import get_language
-
-# from js_asset import JS, static
 
 
 class LazyEncoder(DjangoJSONEncoder):
