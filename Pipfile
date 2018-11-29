@@ -12,6 +12,7 @@ djangorestframework = "*"
 ipython = "*"
 django-debug-toolbar = "*"
 coverage = "*"
+selenium = "*"
 
 [requires]
 python_version = "3"
