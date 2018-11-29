@@ -1,25 +1,17 @@
 [[source]]
-
 url = "https://mirrors.aliyun.com/pypi/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 django = "*"
 pillow = "*"
 djangorestframework = "*"
-django-js-asset = "*"
-
 
 [dev-packages]
-
 ipython = "*"
 django-debug-toolbar = "*"
 coverage = "*"
 
-
 [requires]
-
 python_version = "3"

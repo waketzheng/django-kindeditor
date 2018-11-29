@@ -105,6 +105,3 @@ db.sqlite3
 
 # local media
 media/
-
-# pipenv lock file
-Pipfile.lock
