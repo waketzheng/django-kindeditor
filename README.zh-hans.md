@@ -2,7 +2,7 @@
 
 [![image](https://img.shields.io/pypi/v/django-kindeditor.svg)](https://pypi.org/project/django-kindeditor/)
 [![image](https://img.shields.io/pypi/l/django-kinndeditor.svg)](https://pypi.org/project/django-kindeditor/)
-[![image](https://img.shields.io/pypi/djversions/djangorestframework.svg)](https://pypi.org/project/django-kindeditor/)
+[![image](https://img.shields.io/pypi/djversions/django-kindeditor.svg)](https://pypi.org/project/django-kindeditor/)
 [![image](https://img.shields.io/pypi/pyversions/django-kineditor.svg)](https://pypi.org/project/django-kineditor/)
 [![image](https://img.shields.io/codecov/c/github/waketzheng/django-kindeditor/master.svg)](https://codecov.io/github/waketzheng/django-kindeditor?branch=master)
 [![image](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)

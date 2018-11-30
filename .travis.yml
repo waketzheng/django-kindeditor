@@ -4,7 +4,7 @@ python:
   - "3.7"
 install:
   - pip install .
-  - pip install coverage
+  - pip install selenium coverage
 script:
   - coverage run manage.py test
 after_success:
