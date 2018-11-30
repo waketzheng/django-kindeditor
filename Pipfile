@@ -13,6 +13,7 @@ ipython = "*"
 django-debug-toolbar = "*"
 coverage = "*"
 selenium = "*"
+tox = "*"
 
 [requires]
 python_version = "3"

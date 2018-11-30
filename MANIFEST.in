@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include kindeditor/static *
+recursive-include kindeditor/templates *

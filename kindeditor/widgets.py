@@ -29,9 +29,9 @@ class KindeditorWidget(forms.Textarea):
 
     class Media:
         js = (
-            "kindeditor/kindeditor-all.js",
-            "kindeditor/lang/zh-CN.js",
-            "kindeditor/config.js",
+            "kindeditor/kindeditor-all.min.js",
+            "kindeditor/lang/zh-CN.min.js",
+            "kindeditor/config.min.js",
         )
 
     def __init__(
