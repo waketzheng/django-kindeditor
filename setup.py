@@ -29,7 +29,7 @@ if sys.argv[-1] == "publish":
     print("  git push --tags")
     shutil.rmtree("dist")
     shutil.rmtree("build")
-    shutil.rmtree("kindeditor.egg-info")
+    shutil.rmtree("django_kindeditor.egg-info")
     sys.exit()
 
 packages = ["kindeditor"]

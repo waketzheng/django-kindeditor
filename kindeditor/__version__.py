@@ -1,4 +1,4 @@
-__title__ = "django-kineditor"
+__title__ = "django-kindeditor"
 __description__ = "Django admin KindEditor integration."
 __url__ = "https://github.com/waketzheng/django-kindeditor"
 __version__ = "0.0.1"
