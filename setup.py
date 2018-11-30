@@ -34,7 +34,7 @@ if sys.argv[-1] == "publish":
 
 packages = ["kindeditor"]
 
-requires = ["django>=2.0", "djangorestframework>=3.8", "pillow>=5.0"]
+requires = ["django>=2.0", "djangorestframework>=3.9", "pillow>=5.3"]
 
 
 readme = read("README.md")

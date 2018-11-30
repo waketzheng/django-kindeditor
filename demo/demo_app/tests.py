@@ -1,22 +1,19 @@
 import hashlib
-import os.path
+import os
 from datetime import datetime
 from time import sleep
 
 from django.conf import settings
 from django.contrib.staticfiles.finders import find
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-
-# from django.test.utils import override_settings
 from django.utils.translation import gettext_lazy as _
 
-from selenium import webdriver
-
 from kindeditor.models import DEFAULT_UPLOAD_TO
+from selenium import webdriver
 
 CHROMIUM = "chromium"
 FIREFOX = "firefox"
-SELENIUM_BROWSER = FIREFOX
+SELENIUM_BROWSER = os.getenv("SELENIUM_BROWSER", CHROMIUM)
 
 
 class TestAdminPanelWidget(StaticLiveServerTestCase):

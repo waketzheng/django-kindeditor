@@ -1,6 +1,7 @@
 from django import forms
 
 from kindeditor.fields import RichTextFormField
+
 from .models import Article
 
 

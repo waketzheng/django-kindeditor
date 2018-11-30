@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 

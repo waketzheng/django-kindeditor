@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import path, include
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import include, path
 
-from demo.demo_app.forms import ArticleForm, Article
+from demo.demo_app.forms import Article, ArticleForm
 
 
 def index(request):

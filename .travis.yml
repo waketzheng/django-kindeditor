@@ -1,23 +1,32 @@
 language: python
 cache: pip
-dist: bionic
+dist: trusty
+addons:
+  chrome: stable
 sudo: false
 python:
   - "3.6"
   - "3.7"
+
+env:
+  - DJANGO=2.0
+  - DJANGO=2.1
+
 install:
-  - wget -N https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz -P ~/
-  - tar -xvzf ~/geckodriver-v0.23.0-linux64.tar.gz -C ~/
-  - rm ~/geckodriver-v0.23.0-linux64.tar.gz
-  - sudo mv -f ~/geckodriver /usr/local/share/
-  - sudo chmod +x /usr/local/share/geckodriver
-  - sudo ln -s `pwd`/geckodriver /usr/bin/geckodriver
-  - sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+  - travis_retry pip install -U tox-travis
+  - wget -N http://chromedriver.storage.googleapis.com/70.0.3538.16/chromedriver_linux64.zip -P ~/
+  - unzip ~/chromedriver_linux64.zip -d ~/
+  - rm ~/chromedriver_linux64.zip
+  - sudo mv -f ~/chromedriver /usr/local/share/
+  - sudo chmod +x /usr/local/share/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
   - export PATH=$PATH:/usr/local/bin/
   - pip install .
   - pip install selenium coverage
 script:
-  - coverage run manage.py test
+  - whereis google-chrome-stable
+  - whereis chromedriver
+  - tox
 after_success:
   - pip install codecov
   - codecov
