@@ -8,60 +8,57 @@
 [![image](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 
-This repo is to make it easy to use KindEditor as a RichTextEditor when using django.
+Django 集成富文本编辑器 KindEditor
 
-You can visit this site to see the editor result: 
-http://kindeditor.org/
+KindEditor官网可看到编辑器效果及在线演示：http://kindeditor.org/
 
-[Chinese[中文版]](https://github.com/waketzheng/django-kindeditor/blob/master/README.zh-hans.md)
+## django-kindeditor的具体使用可看demo
 
-## Do the following steps to see the demo
-
-1. clone the repo the local
+1. 克隆仓库
 
 ```
 git clone https://github.com/waketzheng/django-kindeditor
 ```
 
-2. create a virtual environment and install required packages
+2. 创建虚拟环境并安装相应的包
 
 ```
 pipenv install --dev
 ```
 
-3. activate it
+3. 激活虚拟环境
 
 ```
 pipenv shell
 ```
 
-4. migrate and compile translation file
+4. 生产数据库并编译翻译文件
 
 ```
 ./manage.py migrate
 ./manage.py compilemessages
 ```
 
-5. runserver
+5. 启动服务
 
 ```
 ./manage.py runserver
 ```
 
-6. view the url and you will see the demo at webbrowser
+6. 打开如下网址，即可在浏览器看到效果
 
 http://127.0.0.1:8000
 
 
-## Use it in your django project
+## 安装和使用
 
-1. install
+1. 安装
 
 ```
 pipenv install django-kindeditor
 ```
 
-2. and add `kindeditor` and `rest_framework` to INSTALLED_APPS in your settings file
+2. 添加 `kindeditor` 和 `rest_framework` 到settings文件的INSTALLED_APPS 
 
 ```
 INSTALLED_APPS = [
@@ -71,7 +68,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-3. replace `TextField` by `RichTextField` where your want it to be a Kindeditor
+3. 将`TextField` 替换为 `RichTextField`
 
 ```
 # models.py
@@ -91,7 +88,7 @@ from .models import Article
 admin.site.register(Article, EditorAdmin)
 ```
 
-4. the forms, views and template can be as follows:
+4. forms, views and template 可配置如下:
 
 ```
 # forms.py
