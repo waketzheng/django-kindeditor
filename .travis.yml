@@ -6,11 +6,14 @@ python:
   - "3.6"
   - "3.7"
 install:
-  - firefox --version
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
-  - tar -xvzf geckodriver*
-  - chmod +x geckodriver
+  - wget -N https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz -P ~/
+  - tar -xvzf ~/geckodriver-v0.23.0-linux64.tar.gz -d ~/
+  - rm ~/geckodriver-v0.23.0-linux64.tar.gz
+  - sudo mv -f ~/geckodriver /usr/local/share/
+  - sudo chmod +x /usr/local/share/geckodriver
   - sudo ln -s `pwd`/geckodriver /usr/bin/geckodriver
+  - sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+  - export PATH=$PATH:/usr/local/bin/
   - pip install .
   - pip install selenium coverage
 script:
