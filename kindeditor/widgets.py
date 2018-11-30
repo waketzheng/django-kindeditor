@@ -19,6 +19,7 @@ class LazyEncoder(DjangoJSONEncoder):
 json_encode = LazyEncoder().encode
 
 DEFAULT_CONFIG = {}
+TEXTAREA_NAME = "kindeditor-content"
 
 
 class KindeditorWidget(forms.Textarea):
@@ -49,7 +50,7 @@ class KindeditorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ""
-        final_attrs = self.build_attrs(self.attrs, attrs, name=name)
+        final_attrs = self.build_attrs(self.attrs, attrs, name=TEXTAREA_NAME)
         self._set_config()
         external_plugin_resources = [
             [force_text(a), force_text(b), force_text(c)]
@@ -80,4 +81,6 @@ class KindeditorWidget(forms.Textarea):
         lang = get_language()
         if lang == "zh-hans":
             lang = "zh-cn"
+        elif lang == "zh-hant":
+            lang = "zh-TW"
         self.config["language"] = lang

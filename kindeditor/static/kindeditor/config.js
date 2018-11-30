@@ -14,7 +14,7 @@
 
 var editor;
 KindEditor.ready(function(K) {
-    editor = K.create('textarea[name=content]',{
+    editor = K.create('textarea[name=kindeditor-content]',{
 
         // 指定大小
         width:'860px',
