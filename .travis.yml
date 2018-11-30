@@ -1,8 +1,14 @@
 language: python
+cache: pip
+dist: bionic
 python:
   - "3.6"
   - "3.7"
 install:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+  - tar -xvzf geckodriver*
+  - chmod +x geckodriver
+  - export PATH=$PATH:`pwd`/geckodriver
   - pip install .
   - pip install selenium coverage
 script:
@@ -10,3 +16,5 @@ script:
 after_success:
   - pip install codecov
   - codecov
+notifications:
+    email: false
