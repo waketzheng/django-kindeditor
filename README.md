@@ -15,9 +15,52 @@ http://kindeditor.org/
 
 [Chinese[中文版]](https://github.com/waketzheng/django-kindeditor/blob/master/README.zh-hans.md)
 
-## Do the following steps to see the demo
+## Requires
 
-1. clone the repo the local
+- Django 2.0+
+- Python 3.6+
+
+## Use
+
+- Install
+
+```
+pip install django-kindeditor
+```
+
+- Add `kindeditor` and `rest_framework` to INSTALL_APPS in settings
+
+```
+INSTALLED_APPS = [
+    ...
+    'kindeditor',
+    'rest_framework',
+]
+```
+
+## Example
+
+```
+# models.py
+from kindeditor import RichTextField
+
+class Article(models.Model):
+    title = models.CharField(max_length=80)
+    content = RichTextField()
+
+# settings.py
+KINDEDITOR_UPLOAD_PERMISSION = 'admin'
+
+# admin.py
+from django.contrib import admin
+from kindeditor import EditorAdmin
+from .models import Article
+admin.site.register(Article, EditorAdmin)
+```
+
+## Demo
+
+1. clone the repo to local
 
 ```
 git clone https://github.com/waketzheng/django-kindeditor
@@ -51,79 +94,3 @@ pipenv shell
 6. view the url and you will see the demo at webbrowser
 
 http://127.0.0.1:8000
-
-
-## Use it in your django project
-
-1. install
-
-```
-pipenv install django-kindeditor
-```
-
-2. and add `kindeditor` and `rest_framework` to INSTALLED_APPS in your settings file
-
-```
-INSTALLED_APPS = [
-    ...
-    'kindeditor',
-    'rest_framework',
-]
-```
-
-3. replace `TextField` by `RichTextField` where your want it to be a Kindeditor
-
-```
-# models.py
-from kindeditor import RichTextField
-
-class Article(models.Model):
-    title = models.CharField(max_length=80)
-    content = RichTextField()
-
-    def get_absolute_url(self):
-        ...
-
-# admin.py
-from django.contrib import admin
-from kindeditor import EditorAdmin
-from .models import Article
-admin.site.register(Article, EditorAdmin)
-```
-
-4. the forms, views and template can be as follows:
-
-```
-# forms.py
-from django import forms
-from .models import Article
-
-class ArticleForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        fields = '__all__'
-
-# views.py
-from .forms import Article, ArticleForm
-
-def create_article(request):
-    if request.method == 'POST':
-        form = ArticleForm(requset.POST)
-        if form.is_valid():
-            article = form.save()
-            return redirect(article.get_absolute_url())
-    else:
-        form = ArticleForm()
-    return render(request, 'create.html', {'form': form})
-
-# create.html
-<html>
-<body>
-    <form method="post">{% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
-    <input type="submit" value="ok">
-    </form>
-</body>
-</html>
-```
