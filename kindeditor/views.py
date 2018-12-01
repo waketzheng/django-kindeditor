@@ -20,7 +20,7 @@ def _upload_permission():
 
 
 class ImageUploadView(APIView):
-    permission_classes = ()
+    permission_classes = _upload_permission()
 
     def post(self, request):
         serializer = ImageSerializer(data=request.FILES)
