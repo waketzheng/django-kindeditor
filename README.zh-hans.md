@@ -75,7 +75,7 @@ pipenv install --dev
 pipenv shell
 ```
 
-4. 生产数据库并编译翻译文件
+4. 生成数据库并编译翻译文件
 
 ```
 ./manage.py migrate
