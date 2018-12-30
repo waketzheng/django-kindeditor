@@ -1,5 +1,6 @@
 # django-kindeditor
 
+[![image](https://secure.travis-ci.org/waketzheng/django-kindeditor.svg?branch=master)](https://pypi.org/project/django-kindeditor/)
 [![image](https://img.shields.io/pypi/v/django-kindeditor.svg)](https://pypi.org/project/django-kindeditor/)
 [![image](https://img.shields.io/pypi/djversions/django-kindeditor.svg)](https://pypi.org/project/django-kindeditor/)
 [![image](https://img.shields.io/pypi/pyversions/django-kindeditor.svg)](https://pypi.org/project/django-kineditor/)
@@ -60,37 +61,37 @@ admin.site.register(Article, EditorAdmin)
 
 ## Demo
 
-1. clone the repo to local
+1. Clone the repo to local
 
-```
-git clone https://github.com/waketzheng/django-kindeditor
-```
+    ```
+    git clone https://github.com/waketzheng/django-kindeditor
+    ```
 
-2. create a virtual environment and install required packages
+2. Create a virtual environment and install required packages
 
-```
-pipenv install --dev
-```
+    ```
+    pipenv install --dev
+    ```
 
-3. activate it
+3. Activate it
 
-```
-pipenv shell
-```
+    ```
+    pipenv shell
+    ```
 
-4. migrate and compile translation file
+4. Migrate and compile translation file
 
-```
-./manage.py migrate
-./manage.py compilemessages
-```
+    ```
+    ./manage.py migrate
+    ./manage.py compilemessages
+    ```
 
-5. runserver
+5. Runserver
 
-```
-./manage.py runserver
-```
+    ```
+    ./manage.py runserver
+    ```
 
-6. view the url and you will see the demo at webbrowser
+6. View the url and you will see the demo at webbrowser.
 
-http://127.0.0.1:8000
+    http://127.0.0.1:8000
