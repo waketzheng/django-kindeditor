@@ -1,9 +1,9 @@
 __title__ = "django-kindeditor"
 __description__ = "Django admin KindEditor integration."
 __url__ = "https://github.com/waketzheng/django-kindeditor"
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 __build__ = 0x022001
 __author__ = "Waket Zheng"
 __author_email__ = "waketzheng@gmail.com"
 __license__ = "MIT"
-__copyright__ = "Copyright 2018 Waket Zheng"
+__copyright__ = "Copyright 2019 Waket Zheng"

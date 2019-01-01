@@ -25,14 +25,40 @@ KindEditor官网可看到编辑器效果及在线演示：http://kindeditor.org/
 pip install django-kindeditor
 ```
 
-- 添加 `kindeditor` 和 `rest_framework` settings中的INSTALL_APPS
+- 添加 `kindeditor` 到settings中的INSTALL_APPS, 并定义static，media的相关字段
 
 ```
 INSTALLED_APPS = [
     ...
     'kindeditor',
-    'rest_framework',
 ]
+...
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # 你的静态文件路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 你的media文件路径
+```
+
+- 将"kindeditor/"以及static和media的路径插入到urls.py中的urlpatterns
+
+```
+from django.conf import settings
+
+urlpatterns = [
+    ...
+    path("kindeditor/", include("kindeditor.urls")),
+]
+
+if settings.DEBUG:
+    # static and media
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    urlpatterns.extend(
+        staticfiles_urlpatterns()
+        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    )
 ```
 
 ## Example

@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 django = "*"
 pillow = "*"
-djangorestframework = "*"
 
 [dev-packages]
 ipython = "*"
