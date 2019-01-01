@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "kindeditor",
     "demo.demo_app",
-    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -126,3 +125,8 @@ STATIC_URL = "/static/"
 STATIC_ROOT = "static"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "media"
+
+
+# Kindeditor upload permission
+# should be in (None, 'login', 'admin'), default is None
+KINDEDITOR_UPLOAD_PERMISSION = None

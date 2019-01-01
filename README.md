@@ -29,14 +29,49 @@ http://kindeditor.org/
 pip install django-kindeditor
 ```
 
-- Add `kindeditor` and `rest_framework` to INSTALL_APPS in settings
+- Add `kindeditor` to INSTALL_APPS in settings, and define static, media
 
 ```
 INSTALLED_APPS = [
     ...
     'kindeditor',
-    'rest_framework',
 ]
+...
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # your static files path
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # your media files path
+```
+
+- Insert "kindeditor/" path and static, media paths to urlpatterns in urls.py
+
+```
+from django.conf import settings
+
+if settings.DEBUG:
+    # static and media
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    urlpatterns.extend(
+        staticfiles_urlpatterns()
+        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    )
+urlpatterns = [
+    ...
+    path("kindeditor/", include("kindeditor.urls")),
+]
+
+if settings.DEBUG:
+    # static and media
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    urlpatterns.extend(
+        staticfiles_urlpatterns()
+        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    )
 ```
 
 ## Example
