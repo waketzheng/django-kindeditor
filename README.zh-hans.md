@@ -79,6 +79,12 @@ from django.contrib import admin
 from kindeditor import EditorAdmin
 from .models import Article
 admin.site.register(Article, EditorAdmin)
+
+# adminx.py (如果采用了xadmin)
+import xadmin
+from kindeditor import EditorAdminMixin
+from .models import Article
+admin.site.register(Article, EditorAdminMixin)
 ```
 
 ## Demo
