@@ -4,12 +4,15 @@ from datetime import datetime
 from time import sleep
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.staticfiles.finders import find
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from selenium import webdriver
 
 from kindeditor.models import DEFAULT_UPLOAD_TO
-from selenium import webdriver
 
 CHROMIUM = "chromium"
 FIREFOX = "firefox"
@@ -130,3 +133,52 @@ class TestAdminPanelWidget(StaticLiveServerTestCase):
         hash = hashlib.sha1()
         hash.update(image.read())
         return hash.hexdigest()
+
+
+class BaseUploadTest(TestCase):
+    pass
+
+class UploadPermissionTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.url = reverse("kindeditor-image-upload")
+        User = get_user_model()
+        cls.superuser = {"username": "super", "password": "123"}
+        cls.user = {"username": "user", "password": "321"}
+        User.objects.create_superuser(**cls.superuser, email='')
+        User.objects.create_user(**cls.user)
+        super().setUpClass()
+
+    def setUp(self):
+        img = "kindeditor/plugins/image/images/refresh.png"
+        img = os.path.join(settings.BASE_DIR, "kindeditor/static", img)
+        self.data = {"img": open(img, "rb")}
+    
+    @override_settings(KINDEDITOR_UPLOAD_PERMISSION=None)
+    def test_none_permission(self):
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, 201)
+
+    @override_settings(KINDEDITOR_UPLOAD_PERMISSION='login')
+    def test_authenticate_required(self):
+        response = self.client.post(self.url, self.data)
+        print('-'*20)
+        print(response.json())
+        print('-'*20)
+        print('permission:')
+        print(settings.KINDEDITOR_UPLOAD_PERMISSION)
+        self.assertEqual(response.status_code, 400)
+        self.client.login(**self.user)
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, 201)
+
+    @override_settings(KINDEDITOR_UPLOAD_PERMISSION='admin')
+    def test_admin_required(self):
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, 400)
+        self.client.login(**self.user)
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, 400)
+        self.client.login(**self.superuser)
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, 201)
