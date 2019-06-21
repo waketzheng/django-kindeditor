@@ -2,6 +2,19 @@
 <head>
     {{ form.media }}
 </head>
+
+{% if upload_permission %}
+  {% load account %}
+  <div align="center">
+    {% if request.user.is_authenticated %}
+      {% user_display user %}
+      <a href="{% url 'account_logout' %}">{% trans 'logout' %}</a>
+    {% else %}
+      <a href="{% url 'account_login' %}">{% trans 'login' %}</a>
+    {% endif %}
+  </div>
+{% endif %}
+
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">{% trans "publish" %}</button>
