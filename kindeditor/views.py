@@ -12,29 +12,26 @@ HTTP_400_BAD_REQUEST = 400
 IsAuthenticated = 1
 IsAdminUser = 10
 
-SETTINGS_PERMISSION_MAP = {
-    "login": (IsAuthenticated,),
-    "admin": (IsAdminUser,),
-}
-
-
-def _upload_permission():
-    perm = getattr(settings, "KINDEDITOR_UPLOAD_PERMISSION", None)
-    return SETTINGS_PERMISSION_MAP.get(perm, ())
+SETTINGS_PERMISSION_MAP = {"login": {IsAuthenticated}, "admin": {IsAdminUser}}
 
 
 class APIView(View):
     permission_classes = ()
 
     def dispatch(self, request, *args, **kwargs):
-        for perm in self.permission_classes:
-            if perm == IsAuthenticated:
-                if not request.user.is_authenticated:
-                    raise PermissionDenied
-            elif perm == IsAdminUser:
-                if not (request.user and request.user.is_staff):
-                    raise PermissionDenied
+        self.check_permissions(request)
         return super().dispatch(request, *args, **kwargs)
+
+    def check_permissions(self, request):
+        upload = getattr(settings, "KINDEDITOR_UPLOAD_PERMISSION", None)
+        upload_perm = SETTINGS_PERMISSION_MAP.get(upload, set())
+        permissions = set(self.permission_classes) | upload_perm
+        if IsAuthenticated in permissions:
+            if not request.user.is_authenticated:
+                raise PermissionDenied
+        elif IsAdminUser in permissions:
+            if not (request.user and request.user.is_staff):
+                raise PermissionDenied
 
 
 class UploadImageForm(forms.ModelForm):
@@ -44,8 +41,6 @@ class UploadImageForm(forms.ModelForm):
 
 
 class ImageUploadView(APIView):
-    permission_classes = _upload_permission()
-
     def post(self, request):
         form = UploadImageForm(request.POST, request.FILES)
         if form.is_valid():

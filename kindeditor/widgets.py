@@ -80,6 +80,4 @@ class KindeditorWidget(forms.Textarea):
         lang = get_language()
         if lang == "zh-hans":
             lang = "zh-cn"
-        elif lang == "zh-hant":
-            lang = "zh-TW"
         self.config["language"] = lang

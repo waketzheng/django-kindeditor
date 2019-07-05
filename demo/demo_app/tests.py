@@ -135,9 +135,6 @@ class TestAdminPanelWidget(StaticLiveServerTestCase):
         return hash.hexdigest()
 
 
-class BaseUploadTest(TestCase):
-    pass
-
 class UploadPermissionTest(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -145,40 +142,38 @@ class UploadPermissionTest(TestCase):
         User = get_user_model()
         cls.superuser = {"username": "super", "password": "123"}
         cls.user = {"username": "user", "password": "321"}
-        User.objects.create_superuser(**cls.superuser, email='')
+        User.objects.create_superuser(**cls.superuser, email="")
         User.objects.create_user(**cls.user)
         super().setUpClass()
 
     def setUp(self):
         img = "kindeditor/plugins/image/images/refresh.png"
-        img = os.path.join(settings.BASE_DIR, "kindeditor/static", img)
-        self.data = {"img": open(img, "rb")}
-    
+        self.img = os.path.join(settings.BASE_DIR, "kindeditor/static", img)
+
+    @property
+    def data(self):
+        return {"img": open(self.img, "rb")}
+
     @override_settings(KINDEDITOR_UPLOAD_PERMISSION=None)
     def test_none_permission(self):
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, 201)
 
-    @override_settings(KINDEDITOR_UPLOAD_PERMISSION='login')
+    @override_settings(KINDEDITOR_UPLOAD_PERMISSION="login")
     def test_authenticate_required(self):
         response = self.client.post(self.url, self.data)
-        print('-'*20)
-        print(response.json())
-        print('-'*20)
-        print('permission:')
-        print(settings.KINDEDITOR_UPLOAD_PERMISSION)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 403)
         self.client.login(**self.user)
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, 201)
 
-    @override_settings(KINDEDITOR_UPLOAD_PERMISSION='admin')
+    @override_settings(KINDEDITOR_UPLOAD_PERMISSION="admin")
     def test_admin_required(self):
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 403)
         self.client.login(**self.user)
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 403)
         self.client.login(**self.superuser)
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, 201)

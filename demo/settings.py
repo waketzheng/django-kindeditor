@@ -129,4 +129,5 @@ MEDIA_ROOT = "media"
 
 # Kindeditor upload permission
 # should be in (None, 'login', 'admin'), default is None
-KINDEDITOR_UPLOAD_PERMISSION = None
+
+# KINDEDITOR_UPLOAD_PERMISSION = 'admin'

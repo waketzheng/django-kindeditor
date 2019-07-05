@@ -11,10 +11,10 @@
 
 This repo is to make it easy to use KindEditor as a RichTextEditor when using django.
 
-You can visit this site to see the editor result: 
+You can visit this site to see the editor result:
 http://kindeditor.org/
 
-[Chinese[中文版]](https://github.com/waketzheng/django-kindeditor/blob/master/README.zh-hans.md)
+[Chinese[中文版]](https://github.com/waketzheng/django-kindeditor/blob/master/zh-hans-README.md)
 
 ## Requires
 
@@ -130,3 +130,18 @@ admin.site.register(Article, EditorAdmin)
 6. View the url and you will see the demo at webbrowser.
 
     http://127.0.0.1:8000
+
+
+## Development
+
+1. Test Coverage
+
+  ```
+  coverage run ./manage.py test
+  ```
+
+2. Test multiple django versions
+
+  ```
+  tox
+  ```
