@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-30 03:11+0800\n"
+"POT-Creation-Date: 2019-06-21 23:44+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,15 +30,17 @@ msgid "article"
 msgstr "文章"
 
 #: demo/demo_app/models.py:19
-#, fuzzy
-#| msgid "article"
 msgid "articles"
 msgstr "文章"
 
-#: demo/demo_app/templates/index.html:7
+#: demo/demo_app/templates/index.html:20
 msgid "publish"
 msgstr "发布"
 
-#: kindeditor/views.py:35
+#: demo/demo_app/tests.py:60
+msgid "Log in"
+msgstr "登录"
+
+#: kindeditor/views.py:59
 msgid "Upload Error"
 msgstr "上传出错"

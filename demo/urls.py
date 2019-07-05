@@ -29,7 +29,9 @@ def index(request):
             return redirect(article.get_absolute_url())
     else:
         form = ArticleForm()
-    return render(request, "index.html", {"form": form})
+    upload_permission = getattr(settings, "KINDEDITOR_UPLOAD_PERMISSION", None)
+    data = {"form": form, "upload_permission": upload_permission}
+    return render(request, "index.html", data)
 
 
 def article_detail(request, pk):
@@ -42,6 +44,7 @@ urlpatterns = [
     path("<int:pk>", article_detail, name="article-detail"),
     path("admin/", admin.site.urls),
     path("kindeditor/", include("kindeditor.urls")),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:
