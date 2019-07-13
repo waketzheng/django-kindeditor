@@ -14,52 +14,52 @@ KindEditor官网可看到编辑器效果及在线演示：http://kindeditor.org/
 
 ## Requires
 
-- Django 2.0+
-- Python 3.6+
+  - Django 2.0+
+  - Python 3.6+
 
 ## Use
 
-- 安装
+  - 安装
 
-```
-pip install django-kindeditor
-```
+  ```
+  pip install django-kindeditor
+  ```
 
-- 添加 `kindeditor` 到settings中的INSTALL_APPS, 并定义static，media的相关字段
+  - 添加 `kindeditor` 到settings中的INSTALL_APPS, 并定义static，media的相关字段
 
-```
-INSTALLED_APPS = [
-    ...
-    'kindeditor',
-]
-...
+  ```
+  INSTALLED_APPS = [
+      ...
+      'kindeditor',
+  ]
+  ...
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # 你的静态文件路径
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 你的media文件路径
-```
+  STATIC_URL = '/static/'
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # 你的静态文件路径
+  MEDIA_URL = '/media/'
+  MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 你的media文件路径
+  ```
 
-- 将"kindeditor/"以及static和media的路径插入到urls.py中的urlpatterns
+  - 将"kindeditor/"以及static和media的路径插入到urls.py中的urlpatterns
 
-```
-from django.conf import settings
+  ```
+  from django.conf import settings
 
-urlpatterns = [
-    ...
-    path("kindeditor/", include("kindeditor.urls")),
-]
+  urlpatterns = [
+      ...
+      path("kindeditor/", include("kindeditor.urls")),
+  ]
 
-if settings.DEBUG:
-    # static and media
-    from django.conf.urls.static import static
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+  if settings.DEBUG:
+      # static and media
+      from django.conf.urls.static import static
+      from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-    urlpatterns.extend(
-        staticfiles_urlpatterns()
-        + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    )
-```
+      urlpatterns.extend(
+          staticfiles_urlpatterns()
+          + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+      )
+  ```
 
 ## Example
 
@@ -89,37 +89,37 @@ admin.site.register(Article, EditorAdminMixin)
 
 ## Demo
 
-1. 克隆仓库
+ 1. 克隆仓库
 
-```
-git clone https://github.com/waketzheng/django-kindeditor
-```
+  ```
+  git clone https://github.com/waketzheng/django-kindeditor
+  ```
 
-2. 创建虚拟环境并安装相应的包
+ 2. 创建虚拟环境并安装相应的包
 
-```
-pipenv install --dev
-```
+  ```
+  pipenv install --dev
+  ```
 
-3. 激活虚拟环境
+ 3. 激活虚拟环境
 
-```
-pipenv shell
-```
+  ```
+  pipenv shell
+  ```
 
-4. 生成数据库并编译翻译文件
+ 4. 生成数据库并编译翻译文件
 
-```
-./manage.py migrate
-./manage.py compilemessages
-```
+  ```
+  ./manage.py migrate
+  ./manage.py compilemessages
+  ```
 
-5. 启动服务
+ 5. 启动服务
 
-```
-./manage.py runserver
-```
+  ```
+  ./manage.py runserver
+  ```
 
-6. 打开如下网址，即可在浏览器看到效果
+ 6. 打开如下网址，即可在浏览器看到效果
 
-http://127.0.0.1:8000
+  http://127.0.0.1:8000

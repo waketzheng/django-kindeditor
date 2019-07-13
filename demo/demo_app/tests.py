@@ -1,6 +1,7 @@
 import hashlib
 import os
 from datetime import datetime
+from pathlib import Path
 from time import sleep
 
 from django.conf import settings
@@ -114,7 +115,7 @@ class TestAdminPanelWidget(StaticLiveServerTestCase):
     def _assert_image_uploaded(self):
         upload_directory = self._get_upload_directory()
         expected_image_path = os.path.join(upload_directory, "refresh.png")
-        assert os.path.isfile(expected_image_path)
+        self.assertTrue(os.path.isfile(expected_image_path))
         self._assert_uploaded_image_did_not_changed(expected_image_path)
         os.remove(expected_image_path)
 
@@ -126,13 +127,10 @@ class TestAdminPanelWidget(StaticLiveServerTestCase):
     def _assert_uploaded_image_did_not_changed(self, path):
         expected_sha = self._get_sha1_for_file(self._get_upload_file())
         uploaded_sha = self._get_sha1_for_file(path)
-        assert expected_sha == uploaded_sha
+        self.assertEqual(expected_sha, uploaded_sha)
 
     def _get_sha1_for_file(self, path):
-        image = open(path, "rb")
-        hash = hashlib.sha1()
-        hash.update(image.read())
-        return hash.hexdigest()
+        return hashlib.sha1(Path(path).read_bytes()).hexdigest()
 
 
 class UploadPermissionTest(TestCase):

@@ -3,27 +3,26 @@
 import os
 import shutil
 import sys
-from io import open
+from pathlib import Path
 
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-
-def read(f):
-    return open(f, "r", encoding="utf-8").read()
-
-
 about = {}
-exec(read(os.path.join(here, "kindeditor", "__version__.py")), about)
+_filepath = Path(here) / "kindeditor/__version__.py"
+for line in _filepath.read_text().splitlines():
+    if "=" in line:
+        k, v = line.split("=")
+        about[k.strip()] = v.strip(' "')
 
 # 'setup.py publish' shortcut.
 if sys.argv[-1] == "publish":
-    if os.system("which twine"):
+    if os.system("/usr/bin/which twine"):
         print("twine not installed.\nUse `pip install twine`.\nExiting.")
         sys.exit()
-    os.system("python setup.py sdist bdist_wheel")
-    os.system("twine upload dist/*")
+    os.system("/usr/bin/env python setup.py sdist bdist_wheel")
+    os.system("/usr/bin/env twine upload dist/*")
     print("You probably want to also tag the version now:")
     print("  git tag -a {0} -m 'version {0}'".format(about["__version__"]))
     print("  git push --tags")
@@ -37,7 +36,7 @@ packages = ["kindeditor"]
 requires = ["django>=2.0", "pillow>=5.3"]
 
 
-readme = read("README.md")
+readme = Path("README.md").read_text()
 
 setup(
     name=about["__title__"],

@@ -18,8 +18,8 @@ http://kindeditor.org/
 
 ## Requires
 
-- Django 2.0+
-- Python 3.6+
+  - Django 2.0+
+  - Python 3.6+
 
 ## Usage
 
@@ -96,52 +96,58 @@ admin.site.register(Article, EditorAdmin)
 
 ## Demo
 
-1. Clone the repo to local
+ 1. Clone the repo to local
 
     ```
     git clone https://github.com/waketzheng/django-kindeditor
     ```
 
-2. Create a virtual environment and install required packages
+ 2. Create a virtual environment and install required packages
 
     ```
     pipenv install --dev
     ```
 
-3. Activate it
+ 3. Activate it
 
     ```
     pipenv shell
     ```
 
-4. Migrate and compile translation file
+ 4. Migrate and compile translation file
 
     ```
     ./manage.py migrate
     ./manage.py compilemessages
     ```
 
-5. Runserver
+ 5. Runserver
 
     ```
     ./manage.py runserver
     ```
 
-6. View the url and you will see the demo at webbrowser.
+ 6. View the url and you will see the demo at webbrowser.
 
     http://127.0.0.1:8000
 
-
 ## Development
 
-1. Test Coverage
+ 1. Test Coverage
 
   ```
   coverage run ./manage.py test
   ```
 
-2. Test multiple django versions
+ 2. Test multiple django versions
 
   ```
   tox
+  ```
+
+ 3. Show code quality
+
+  ```
+  coverage xml
+  python-codacy-coverage -r coverage.xml
   ```
