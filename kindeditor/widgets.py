@@ -10,10 +10,10 @@ from django.utils.translation import get_language
 
 
 class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Promise):
-            return force_text(obj)
-        return super().default(obj)
+    def default(self, o):
+        if isinstance(o, Promise):
+            return force_text(o)
+        return super().default(o)
 
 
 json_encode = LazyEncoder().encode
@@ -49,7 +49,7 @@ class KindeditorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ""
-        final_attrs = self.build_attrs(self.attrs, attrs, name=name)
+        final_attrs = dict(self.build_attrs(self.attrs, attrs), name=name)
         self._set_config()
         external_plugin_resources = [
             [force_text(a), force_text(b), force_text(c)]
@@ -69,12 +69,6 @@ class KindeditorWidget(forms.Textarea):
                 },
             )
         )
-
-    def build_attrs(self, base_attrs, extra_attrs=None, **kwargs):
-        attrs = dict(base_attrs, **kwargs)
-        if extra_attrs:
-            attrs.update(extra_attrs)
-        return attrs
 
     def _set_config(self):
         lang = get_language()
