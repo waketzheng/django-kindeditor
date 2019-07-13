@@ -49,7 +49,7 @@ class KindeditorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ""
-        final_attrs = dict(self.build_attrs(self.attrs, attrs), name=name)
+        final_attrs = dict(self.attrs, name=name, **(attrs or {}))
         self._set_config()
         external_plugin_resources = [
             [force_text(a), force_text(b), force_text(c)]

@@ -100,8 +100,8 @@ class TestAdminPanelWidget(StaticLiveServerTestCase):
         self.selenium.switch_to.frame(iframe)
 
     def _upload_image(self):
-        input = self.selenium.find_element_by_class_name("ke-upload-file")
-        input.send_keys(self._get_upload_file())
+        input_el = self.selenium.find_element_by_class_name("ke-upload-file")
+        input_el.send_keys(self._get_upload_file())
         self.selenium.switch_to.default_content()
         self.selenium.find_element_by_css_selector(
             # "input[class='ke-button-common ke-button']"
@@ -125,12 +125,12 @@ class TestAdminPanelWidget(StaticLiveServerTestCase):
         return os.path.join(settings.MEDIA_ROOT, upload_path)
 
     def _assert_uploaded_image_did_not_changed(self, path):
-        expected_sha = self._get_sha1_for_file(self._get_upload_file())
-        uploaded_sha = self._get_sha1_for_file(path)
+        expected_sha = self._get_sha2_for_file(self._get_upload_file())
+        uploaded_sha = self._get_sha2_for_file(path)
         self.assertEqual(expected_sha, uploaded_sha)
 
-    def _get_sha1_for_file(self, path):
-        return hashlib.sha1(Path(path).read_bytes()).hexdigest()
+    def _get_sha2_for_file(self, path):
+        return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
 class UploadPermissionTest(TestCase):

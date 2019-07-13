@@ -18,20 +18,20 @@ http://kindeditor.org/
 
 ## Requires
 
-  - Django 2.0+
-  - Python 3.6+
+- Django 2.0+
+- Python 3.6+
 
 ## Usage
 
 - Install
 
-```
+```bash
 pip install django-kindeditor
 ```
 
 - Add `kindeditor` to INSTALL_APPS in settings, and define static, media
 
-```
+```py
 INSTALLED_APPS = [
     ...
     'kindeditor',
@@ -46,7 +46,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # your media files path
 
 - Insert "kindeditor/" path and static, media paths to urlpatterns in urls.py
 
-```
+```py
 from django.conf import settings
 
 if settings.DEBUG:
@@ -76,7 +76,7 @@ if settings.DEBUG:
 
 ## Example
 
-```
+```py
 # models.py
 from kindeditor import RichTextField
 
@@ -96,58 +96,58 @@ admin.site.register(Article, EditorAdmin)
 
 ## Demo
 
- 1. Clone the repo to local
+1. Clone the repo to local
 
-    ```
-    git clone https://github.com/waketzheng/django-kindeditor
-    ```
+   ```bash
+   git clone https://github.com/waketzheng/django-kindeditor
+   ```
 
- 2. Create a virtual environment and install required packages
+2. Create a virtual environment and install required packages
 
-    ```
-    pipenv install --dev
-    ```
+   ```bash
+   pipenv install --dev
+   ```
 
- 3. Activate it
+3. Activate it
 
-    ```
-    pipenv shell
-    ```
+   ```bash
+   pipenv shell
+   ```
 
- 4. Migrate and compile translation file
+4. Migrate and compile translation file
 
-    ```
-    ./manage.py migrate
-    ./manage.py compilemessages
-    ```
+   ```bash
+   ./manage.py migrate
+   ./manage.py compilemessages
+   ```
 
- 5. Runserver
+5. Runserver
 
-    ```
-    ./manage.py runserver
-    ```
+   ```bash
+   ./manage.py runserver
+   ```
 
- 6. View the url and you will see the demo at webbrowser.
+6. View the url and you will see the demo at webbrowser.
 
-    http://127.0.0.1:8000
+   http://127.0.0.1:8000
 
 ## Development
 
- 1. Test Coverage
+1. Test Coverage
 
-  ```
-  coverage run ./manage.py test
-  ```
+ ```bash
+ coverage run ./manage.py test
+ ```
 
- 2. Test multiple django versions
+2. Test multiple django versions
 
-  ```
-  tox
-  ```
+ ```bash
+ tox
+ ```
 
- 3. Show code quality
+3. Show code quality
 
-  ```
-  coverage xml
-  python-codacy-coverage -r coverage.xml
-  ```
+ ```bash
+ coverage xml
+ python-codacy-coverage -r coverage.xml
+ ```
