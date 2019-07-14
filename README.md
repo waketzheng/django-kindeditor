@@ -135,19 +135,19 @@ admin.site.register(Article, EditorAdmin)
 
 1. Test Coverage
 
- ```bash
- coverage run ./manage.py test
- ```
+   ```bash
+   coverage run ./manage.py test
+   ```
 
 2. Test multiple django versions
 
- ```bash
- tox
- ```
+   ```bash
+   tox
+   ```
 
 3. Show code quality
 
- ```bash
- coverage xml
- python-codacy-coverage -r coverage.xml
- ```
+   ```bash
+   coverage xml
+   python-codacy-coverage -r coverage.xml
+   ```
