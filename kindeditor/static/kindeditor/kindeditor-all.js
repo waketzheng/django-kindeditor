@@ -1,11 +1,11 @@
 /*******************************************************************************
 * KindEditor - WYSIWYG HTML Editor for Internet
-* Copyright (C) 2006-2016 kindsoft.net
+* Copyright (C) 2006-2019 kindsoft.net
 *
 * @author Roddy <luolonghao@gmail.com>
 * @website http://www.kindsoft.net/
 * @licence http://www.kindsoft.net/license.php
-* @version 4.1.11 (2016-03-31)
+* @version 4.1.12 (2019-03-07)
 *******************************************************************************/
 (function (window, undefined) {
 	if (window.KindEditor) {
@@ -19,7 +19,7 @@ if (!window.console) {
 if (!console.log) {
 	console.log = function () {};
 }
-var _VERSION = '4.1.11 (2016-03-31)',
+var _VERSION = '4.1.12 (2019-03-07)',
 	_ua = navigator.userAgent.toLowerCase(),
 	_IE = _ua.indexOf('msie') > -1 && _ua.indexOf('opera') == -1,
 	_NEWIE = _ua.indexOf('msie') == -1 && _ua.indexOf('trident') > -1,
@@ -156,8 +156,7 @@ function _extend(child, parent, proto) {
 	child.prototype = childProto;
 	child.parent = parent ? parent.prototype : null;
 }
-
-
+
 function _json(text) {
 	var match;
 	if ((match = /\{[\s\S]*\}|\[[\s\S]*\]/.exec(text))) {
@@ -317,12 +316,9 @@ K.options = {
 
 
 var _useCapture = false;
-
-
-var _INPUT_KEY_MAP = _toMap('8,9,13,32,46,48..57,59,61,65..90,106,109..111,188,190..192,219..222');
-
-var _CURSORMOVE_KEY_MAP = _toMap('33..40');
-
+
+var _INPUT_KEY_MAP = _toMap('8,9,13,32,46,48..57,59,61,65..90,106,109..111,188,190..192,219..222');
+var _CURSORMOVE_KEY_MAP = _toMap('33..40');
 var _CHANGE_KEY_MAP = {};
 _each(_INPUT_KEY_MAP, function(key, val) {
 	_CHANGE_KEY_MAP[key] = val;
@@ -330,16 +326,14 @@ _each(_INPUT_KEY_MAP, function(key, val) {
 _each(_CURSORMOVE_KEY_MAP, function(key, val) {
 	_CHANGE_KEY_MAP[key] = val;
 });
-
-
+
 function _bindEvent(el, type, fn) {
 	if (el.addEventListener){
 		el.addEventListener(type, fn, _useCapture);
 	} else if (el.attachEvent){
 		el.attachEvent('on' + type, fn);
 	}
-}
-
+}
 function _unbindEvent(el, type, fn) {
 	if (el.removeEventListener){
 		el.removeEventListener(type, fn, _useCapture);
@@ -350,8 +344,7 @@ function _unbindEvent(el, type, fn) {
 var _EVENT_PROPS = ('altKey,attrChange,attrName,bubbles,button,cancelable,charCode,clientX,clientY,ctrlKey,currentTarget,' +
 	'data,detail,eventPhase,fromElement,handler,keyCode,metaKey,newValue,offsetX,offsetY,originalTarget,pageX,' +
 	'pageY,prevValue,relatedNode,relatedTarget,screenX,screenY,shiftKey,srcElement,target,toElement,view,wheelDelta,which').split(',');
-
-
+
 function KEvent(el, event) {
 	this.init(el, event);
 }
@@ -622,6 +615,7 @@ K.ctrl = _ctrl;
 K.ready = _ready;
 
 function _getCssList(css) {
+	css = css.replace(/&quot;/g, '"');
 	var list = {},
 		reg = /\s*([\w\-]+)\s*:([^;]*)(;|$)/g,
 		match;
@@ -908,8 +902,7 @@ function _formatHtml(html, htmlTags, urlType, wellFormatted, indentChar) {
 	html = html.replace(/\n\s*\n/g, '\n');
 	html = html.replace(/<span id="__kindeditor_pre_newline__">\n/g, '\n');
 	return _trim(html);
-}
-
+}
 function _clearMsWord(html, htmlTags) {
 	html = html.replace(/<meta[\s\S]*?>/ig, '')
 		.replace(/<![\s\S]*?>/ig, '')
@@ -922,8 +915,7 @@ function _clearMsWord(html, htmlTags) {
 			return full.replace(/border-bottom:([#\w\s]+)/ig, 'border:$1');
 		});
 	return _formatHtml(html, htmlTags);
-}
-
+}
 function _mediaType(src) {
 	if (/\.(rm|rmvb)(\?|$)/i.test(src)) {
 		return 'audio/x-pn-realaudio-plugin';
@@ -932,8 +924,7 @@ function _mediaType(src) {
 		return 'application/x-shockwave-flash';
 	}
 	return 'video/x-ms-asf-plugin';
-}
-
+}
 function _mediaClass(type) {
 	if (/realaudio/i.test(type)) {
 		return 'ke-rm';
@@ -977,10 +968,7 @@ function _mediaImg(blankPath, attrs) {
 	html += 'data-ke-tag="' + escape(srcTag) + '" alt="" />';
 	return html;
 }
-
-
-
-
+
 function _tmpl(str, data) {
 	var fn = new Function("obj",
 		"var p=[],print=function(){p.push.apply(p,arguments);};" +
@@ -1317,8 +1305,7 @@ function _getScrollPos(doc) {
 	}
 	return {x : x, y : y};
 }
-
-
+
 function KNode(node) {
 	this.init(node);
 }
@@ -1954,8 +1941,7 @@ function _copyAndDelete(range, isCopy, isDelete) {
 		}
 	}
 	return isCopy ? frag : range;
-}
-
+}
 function _moveToElementText(range, el) {
 	var node = el;
 	while (node) {
@@ -1968,8 +1954,7 @@ function _moveToElementText(range, el) {
 	try {
 		range.moveToElementText(el);
 	} catch(e) {}
-}
-
+}
 function _getStartEnd(rng, isStart) {
 	var doc = rng.parentElement().ownerDocument,
 		pointRange = rng.duplicate();
@@ -2034,8 +2019,7 @@ function _getStartEnd(rng, isStart) {
 		}
 	}
 	return {node: startNode, offset: startPos};
-}
-
+}
 function _getEndRange(node, offset) {
 	var doc = node.ownerDocument || node,
 		range = doc.body.createTextRange();
@@ -2092,8 +2076,7 @@ function _getEndRange(node, offset) {
 	range.moveStart('character', offset);
 	K(dummy).remove();
 	return range;
-}
-
+}
 function _toRange(rng) {
 	var doc, range;
 	function tr2td(start) {
@@ -2126,8 +2109,7 @@ function _toRange(rng) {
 	range.setEnd(rng.endContainer, rng.endOffset);
 	return range;
 }
-
-
+
 function KRange(doc) {
 	this.init(doc);
 }
@@ -2545,14 +2527,12 @@ K.START_TO_END = _START_TO_END;
 K.END_TO_END = _END_TO_END;
 K.END_TO_START = _END_TO_START;
 
-
-
+
 function _nativeCommand(doc, key, val) {
 	try {
 		doc.execCommand(key, false, val);
 	} catch(e) {}
-}
-
+}
 function _nativeCommandValue(doc, key) {
 	var val = '';
 	try {
@@ -2562,13 +2542,11 @@ function _nativeCommandValue(doc, key) {
 		val = '';
 	}
 	return val;
-}
-
+}
 function _getSel(doc) {
 	var win = _getWin(doc);
 	return _IERANGE ? doc.selection : win.getSelection();
-}
-
+}
 function _getRng(doc) {
 	var sel = _getSel(doc), rng;
 	try {
@@ -2582,8 +2560,7 @@ function _getRng(doc) {
 		return null;
 	}
 	return rng;
-}
-
+}
 function _singleKeyMap(map) {
 	var newMap = {}, arr, v;
 	_each(map, function(key, val) {
@@ -2594,8 +2571,7 @@ function _singleKeyMap(map) {
 		}
 	});
 	return newMap;
-}
-
+}
 function _hasAttrOrCss(knode, map) {
 	return _hasAttrOrCssByKey(knode, map, '*') || _hasAttrOrCssByKey(knode, map);
 }
@@ -2626,8 +2602,7 @@ function _hasAttrOrCssByKey(knode, map, mapKey) {
 		}
 	}
 	return false;
-}
-
+}
 function _removeAttrOrCss(knode, map) {
 	if (knode.type != 1) {
 		return;
@@ -2665,26 +2640,20 @@ function _removeAttrOrCssByKey(knode, map, mapKey) {
 	if (allFlag) {
 		knode.remove(true);
 	}
-}
-
+}
 function _getInnerNode(knode) {
 	var inner = knode;
 	while (inner.first()) {
 		inner = inner.first();
 	}
 	return inner;
-}
-
+}
 function _isEmptyNode(knode) {
 	if (knode.type != 1 || knode.isSingle()) {
 		return false;
 	}
 	return knode.html().replace(/<[^>]+>/g, '') === '';
-}
-
-
-
-
+}
 function _mergeWrapper(a, b) {
 	a = a.clone(true);
 	var lastA = _getInnerNode(a), childA = a, merged = false;
@@ -2703,8 +2672,7 @@ function _mergeWrapper(a, b) {
 		b = b.first();
 	}
 	return a;
-}
-
+}
 function _wrapNode(knode, wrapper) {
 	wrapper = wrapper.clone(true);
 	if (knode.type == 3) {
@@ -2728,8 +2696,7 @@ function _wrapNode(knode, wrapper) {
 	}
 	nodeWrapper.replaceWith(wrapper);
 	return wrapper;
-}
-
+}
 function _mergeAttrs(knode, attrs, styles) {
 	_each(attrs, function(key, val) {
 		if (key !== 'style') {
@@ -2739,8 +2706,7 @@ function _mergeAttrs(knode, attrs, styles) {
 	_each(styles, function(key, val) {
 		knode.css(key, val);
 	});
-}
-
+}
 function _inPreElement(knode) {
 	while (knode && knode.name != 'body') {
 		if (_PRE_TAG_MAP[knode.name] || knode.name == 'div' && knode.hasClass('ke-script')) {
@@ -2749,8 +2715,7 @@ function _inPreElement(knode) {
 		knode = knode.parent();
 	}
 	return false;
-}
-
+}
 function KCmd(range) {
 	this.init(range);
 }
@@ -3434,8 +3399,7 @@ function _drag(options) {
 		}
 	});
 }
-
-
+
 function KWidget(options) {
 	this.init(options);
 }
@@ -3521,7 +3485,7 @@ _extend(KWidget, {
 		return self;
 	},
 	autoPos : function(width, height) {
-		var self = this,
+		var x, y, self = this,
 			w = _removeUnit(width) || 0,
 			h = _removeUnit(height) || 0,
 			scrollPos = _getScrollPos();
@@ -3675,8 +3639,7 @@ function _elementVal(knode, val) {
 	}
 	return knode.html(val);
 }
-
-
+
 function KEdit(options) {
 	this.init(options);
 }
@@ -3937,8 +3900,7 @@ function _selectToolbar(name, fn) {
 		fn(knode);
 	}
 }
-
-
+
 function KToolbar(options) {
 	this.init(options);
 }
@@ -4058,8 +4020,7 @@ function _toolbar(options) {
 K.ToolbarClass = KToolbar;
 K.toolbar = _toolbar;
 
-
-
+
 function KMenu(options) {
 	this.init(options);
 }
@@ -4142,8 +4103,7 @@ function _menu(options) {
 K.MenuClass = KMenu;
 K.menu = _menu;
 
-
-
+
 function KColorPicker(options) {
 	this.init(options);
 }
@@ -4242,11 +4202,7 @@ _extend(KUploadButton, {
 			hiddenElements.push('<input type="hidden" name="' + k + '" value="' + extraParams[k] + '" />');
 		}
     var csrfitems = document.getElementsByName("csrfmiddlewaretoken");
-    var csrftoken = "";
-    if(csrfitems.length > 0)
-    {
-      csrftoken = csrfitems[0].value;
-    }
+    var csrftoken = csrfitems.length > 0 ? csrfitems[0].value:"";
 		var html = [
 			'<div class="ke-inline-block ' + cls + '">',
 			(options.target ? '' : '<iframe name="' + target + '" style="display:none;"></iframe>'),
@@ -4332,8 +4288,7 @@ function _createButton(arg) {
 	span.append(btn);
 	return span;
 }
-
-
+
 function KDialog(options) {
 	this.init(options);
 }
@@ -4532,8 +4487,7 @@ function _loadScript(url, fn) {
 		}
 	};
 }
-
-
+
 function _chopQuery(url) {
 	var index = url.indexOf('?');
 	return index > 0 ? url.substr(0, index) : url;
@@ -4629,8 +4583,7 @@ function _lang(mixed, langType) {
 		_language[langType][obj.ns][obj.key] = val;
 	});
 }
-
-
+
 function _getImageFromRange(range, fn) {
 	if (range.collapsed) {
 		return;
@@ -4778,20 +4731,6 @@ function _bindNewlineEvent() {
 		if (!pSkipTagMap[tagName]) {
 			_nativeCommand(doc, 'formatblock', '<p>');
 		}
-		var div = self.cmd.commonAncestor('div');
-		if (div) {
-			var p = K('<p></p>'),
-				child = div[0].firstChild;
-			while (child) {
-				var next = child.nextSibling;
-				p.append(child);
-				child = next;
-			}
-			div.before(p);
-			div.remove();
-			self.cmd.range.selectNodeContents(p[0]);
-			self.cmd.select();
-		}
 	});
 }
 function _bindTabEvent() {
@@ -4841,9 +4780,7 @@ function _addBookmarkToStack(stack, bookmark) {
 		stack.push(bookmark);
 	}
 }
-
-
-
+
 function _undoToRedo(fromStack, toStack) {
 	var self = this, edit = self.edit,
 		body = edit.doc.body,
@@ -5267,7 +5204,7 @@ KEditor.prototype = {
 		}
 		if (height) {
 			height = _removeUnit(height);
-			editHeight = _removeUnit(height) - self.toolbar.div.height() - self.statusbar.height();
+			var editHeight = _removeUnit(height) - self.toolbar.div.height() - self.statusbar.height();
 			editHeight = editHeight < self.minHeight ? self.minHeight : editHeight;
 			self.edit.setHeight(editHeight);
 			if (updateProp) {
@@ -5521,7 +5458,7 @@ KEditor.prototype = {
 function _editor(options) {
 	return new KEditor(options);
 }
-_instances = [];
+var _instances = [];
 function _create(expr, options) {
 	options = options || {};
 	options.basePath = _undef(options.basePath, K.basePath);
@@ -5602,8 +5539,7 @@ K.appendHtml = function(expr, val) {
 		this.appendHtml(val);
 	});
 };
-
-
+
 if (_IE && _V < 7) {
 	_nativeCommand(document, 'BackgroundImageCache', true);
 }
@@ -5613,8 +5549,7 @@ K.create = _create;
 K.instances = _instances;
 K.plugin = _plugin;
 K.lang = _lang;
-
-
+
 _plugin('core', function(K) {
 	var self = this,
 		shortcutKeys = {
@@ -6393,6 +6328,9 @@ KindEditor.plugin('autoheight', function(K) {
 		body.style.overflowY = 'hidden';
 	}
 	function resetHeight() {
+		if(self.fullscreenMode){
+			return;
+		}
 		var edit = self.edit;
 		var body = edit.doc.body;
 		edit.iframe.height(minHeight);
@@ -6401,7 +6339,9 @@ KindEditor.plugin('autoheight', function(K) {
 	function init() {
 		minHeight = K.removeUnit(self.height);
 		self.edit.afterChange(resetHeight);
-		hideScroll();
+		if(!self.fullscreenMode){
+			hideScroll();
+		}
 		resetHeight();
 	}
 	if (self.isCreated) {
@@ -6514,8 +6454,7 @@ KindEditor.plugin('baidumap', function(K) {
 * @site http://www.kindsoft.net/
 * @licence http://www.kindsoft.net/license.php
 *******************************************************************************/
-
-
+
 KindEditor.plugin('map', function(K) {
 	var self = this, name = 'map', lang = self.lang(name + '.');
 	self.clickToolbar(name, function() {
@@ -6675,9 +6614,7 @@ KindEditor.plugin('clearhtml', function(K) {
 * @site http://www.kindsoft.net/
 * @licence http://www.kindsoft.net/license.php
 *******************************************************************************/
-
-
-
+
 KindEditor.plugin('code', function(K) {
 	var self = this, name = 'code';
 	self.clickToolbar(name, function() {
@@ -7054,7 +6991,7 @@ KindEditor.plugin('flash', function(K) {
 		allowFileManager = K.undef(self.allowFileManager, false),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
-		filePostName = K.undef(self.filePostName, 'img'),
+		filePostName = K.undef(self.filePostName, 'imgFile'),
 		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php');
 	self.plugin.flash = {
 		edit : function() {
@@ -7212,7 +7149,7 @@ KindEditor.plugin('image', function(K) {
 		imageTabIndex = K.undef(self.imageTabIndex, 0),
 		imgPath = self.pluginsPath + 'image/images/',
 		extraParams = K.undef(self.extraFileUploadParams, {}),
-		filePostName = K.undef(self.filePostName, 'img'),
+		filePostName = K.undef(self.filePostName, 'imgFile'),
 		fillDescAfterUploadImage = K.undef(self.fillDescAfterUploadImage, false),
 		lang = self.lang(name + '.');
 	self.plugin.imageDialog = function(options) {
@@ -7518,7 +7455,7 @@ KindEditor.plugin('insertfile', function(K) {
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php'),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
-		filePostName = K.undef(self.filePostName, 'img'),
+		filePostName = K.undef(self.filePostName, 'imgFile'),
 		lang = self.lang(name + '.');
 	self.plugin.fileDialog = function(options) {
 		var fileUrl = K.undef(options.fileUrl, 'http://'),
@@ -7753,7 +7690,7 @@ KindEditor.plugin('media', function(K) {
 		allowFileManager = K.undef(self.allowFileManager, false),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		extraParams = K.undef(self.extraFileUploadParams, {}),
-		filePostName = K.undef(self.filePostName, 'img'),
+		filePostName = K.undef(self.filePostName, 'imgFile'),
 		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php');
 	self.plugin.media = {
 		edit : function() {
@@ -8091,7 +8028,7 @@ KindEditor.plugin('multiimage', function(K) {
 		imageSizeLimit = K.undef(self.imageSizeLimit, '1MB'),
 		imageFileTypes = K.undef(self.imageFileTypes, '*.jpg;*.gif;*.png'),
 		imageUploadLimit = K.undef(self.imageUploadLimit, 20),
-		filePostName = K.undef(self.filePostName, 'img'),
+		filePostName = K.undef(self.filePostName, 'imgFile'),
 		lang = self.lang(name + '.');
 	self.plugin.multiImageDialog = function(options) {
 		var clickFn = options.clickFn,
@@ -8249,6 +8186,7 @@ SWFUpload.completeURL = function(url) {
 	}
 	var currentURL = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
 	var indexSlash = window.location.pathname.lastIndexOf("/");
+	var path;
 	if (indexSlash <= 0) {
 		path = "/";
 	} else {

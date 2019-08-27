@@ -203,7 +203,7 @@ KindEditor.plugin('multiimage', function(K) {
 		imageSizeLimit = K.undef(self.imageSizeLimit, '1MB'),
 		imageFileTypes = K.undef(self.imageFileTypes, '*.jpg;*.gif;*.png'),
 		imageUploadLimit = K.undef(self.imageUploadLimit, 20),
-		filePostName = K.undef(self.filePostName, 'img'),
+		filePostName = K.undef(self.filePostName, 'imgFile'),
 		lang = self.lang(name + '.');
 
 	self.plugin.multiImageDialog = function(options) {
@@ -396,6 +396,7 @@ SWFUpload.completeURL = function(url) {
 	var currentURL = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
 
 	var indexSlash = window.location.pathname.lastIndexOf("/");
+	var path;
 	if (indexSlash <= 0) {
 		path = "/";
 	} else {
