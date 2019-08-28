@@ -35,6 +35,15 @@ class APIView(View):
 
 
 class UploadImageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        # reformat files data: files['imgFile'] --> files['img']
+        if "files" in kwargs:
+            if "imgFile" in kwargs["files"]:
+                kwargs["files"]["img"] = kwargs["files"].pop("imgFile")[0]
+        elif len(args) >= 2 and "imgFile" in args[1]:
+            args[1]["img"] = args[1].pop("imgFile")[0]
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = UploadImage
         fields = "__all__"
