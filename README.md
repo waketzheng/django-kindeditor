@@ -8,13 +8,14 @@
 [![image](https://img.shields.io/codecov/c/github/waketzheng/django-kindeditor/master.svg)](https://codecov.io/github/waketzheng/django-kindeditor?branch=master)
 [![image](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 
+> Deprecated! Now that source code of kindeditor does not update for a long time and the editor sometimes on worked as expected, this repo will no longer update. Recommend to use django-ckeditor or vue+djangorestframework instead.
 
 This repo is to make it easy to use KindEditor as a RichTextEditor when using django.
 
 You can visit this site to see the editor result:
 http://kindeditor.org/
 
-[Chinese[中文版]](https://github.com/waketzheng/django-kindeditor/blob/master/zh-hans-README.md)
+[Chinese[中文版]](https://github.com/waketzheng/django-kindeditor/blob/master/zh-hans_README.md)
 
 ## Requires
 
