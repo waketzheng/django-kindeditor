@@ -7,6 +7,7 @@
 [![image](https://img.shields.io/codecov/c/github/waketzheng/django-kindeditor/master.svg)](https://codecov.io/github/waketzheng/django-kindeditor?branch=master)
 [![image](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 
+> 该仓库已停止更新！鉴于kindeditor的源代码更新频率很低，且用起来的效果跟预期存在一定差距，后续使用富文本一般会用django-ckeditor或vue+quill（参考这个：[panjiachen.github.io/vue-element-admin-site/zh/feature/component/rich-editor.html#常见富文本](https://panjiachen.github.io/vue-element-admin-site/zh/feature/component/rich-editor.html#%E5%B8%B8%E8%A7%81%E5%AF%8C%E6%96%87%E6%9C%AC)）
 
 Django 集成富文本编辑器 KindEditor
 
